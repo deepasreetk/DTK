@@ -7,7 +7,7 @@ pipeline {
         SCANNER_HOME = tool 'sonar-scanner'
         APP_NAME = "java-registration-app"
         RELEASE = "1.0.0"
-        DOCKER_USER = "ashfaque9x"
+        DOCKER_USER = "sanjeevrisbud"
         DOCKER_PASS = 'dockerhub'
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
@@ -21,7 +21,7 @@ pipeline {
          }
          stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://ashfaque-9x@bitbucket.org/vtechbox/registration-app.git'
+                git branch: 'main', url: 'https://rootmeet@bitbucket.org/sanjuo/registration-app.git'
             }
          }
          stage ('Build Package')  {
@@ -51,7 +51,7 @@ pipeline {
             steps {
                 rtServer (
                     id: "jfrog-server",
-                    url: "http://13.201.137.77:8082/artifactory",
+                    url: "http://http://192.168.68.91:8082/artifactory",
                     credentialsId: "jfrog"
                 )
 
@@ -109,7 +109,7 @@ pipeline {
          stage("Trivy Image Scan") {
              steps {
                  script {
-	                  sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image ashfaque9x/java-registration-app:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table > trivyimage.txt')
+	                  sh ('docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image sanjeevrisbud/java-registration-app:latest --no-progress --scanners vuln  --exit-code 0 --severity HIGH,CRITICAL --format table > trivyimage.txt')
                  }
              }
          }
@@ -121,7 +121,7 @@ pipeline {
                  }
              }
          }
-         stage('Deploy to Kubernets'){
+         /* stage('Deploy to Kubernets'){
              steps{
                  script{
                       dir('Kubernetes') {
@@ -133,7 +133,7 @@ pipeline {
                       }
                  }
              }
-         }
+         } */
         
     }
     post {
@@ -143,7 +143,7 @@ pipeline {
             body: "Project: ${env.JOB_NAME}<br/>" +
                 "Build Number: ${env.BUILD_NUMBER}<br/>" +
                 "URL: ${env.BUILD_URL}<br/>",
-            to: 'ashfaque.s510@gmail.com',                              
+            to: 'rootmeet@gmail.com',                              
             attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
       }
     }
