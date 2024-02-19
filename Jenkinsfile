@@ -130,7 +130,7 @@ pipeline {
                          sh 'kubectl apply -f service.yml'
                          sh 'kubectl rollout restart deployment.apps/registerapp-deployment'
                          }   
-                      }
+                      } 
                  }
              }
          }
