@@ -121,7 +121,7 @@ pipeline {
                  }
              }
          }
-         /* stage('Deploy to Kubernets'){
+         stage('Deploy to Kubernets'){
              steps{
                  script{
                       dir('Kubernetes') {
@@ -133,7 +133,7 @@ pipeline {
                       }
                  }
              }
-         } */
+         }
         
     }
     post {
